@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<body>
+  <div class="container">
+    <canvas id="canvas"></canvas>
+    <input type="button" value="Draw more" onclick="draw(100)"/>
+    <input type="button" value="Draw much more" onclick="draw(1000)"/>
+  </div>
+</body>
+</html>
+<style>
+  body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: #8AF;
+}
+
+.container input[type="button"] {
+  position: relative;
+  float: left;
+  font-size: 24px;
+  padding: 10px;
+  margin: 10px;
+  z-index: 1;
+}
+
+#canvas {
+  position: absolute;
+  width: 100%;
+  height:100%;
+  left: 0;
+  top: 0;
+}
+</style>
+<script>
+  // Return a random color
+function randomColor(){
+  return "rgb(" +
+    Math.round(256*Math.random()) + "," +
+    Math.round(256*Math.random()) + "," +
+    Math.round(256*Math.random()) + ")";
+}
+
+// Draw some lines
+function draw(n){
+  // Canvas
+  var c= document.getElementById("canvas");
+  var ctx= c.getContext("2d");
+  // Draw lines
+  for (var i= 0; i < n; i++) {
+    ctx.beginPath();
+    ctx.moveTo(c.width*Math.random(), c.height*Math.random());
+    ctx.lineTo(c.width*Math.random(), c.height*Math.random());
+    ctx.strokeStyle= randomColor();
+    ctx.stroke();
+  }
+}
+
+// Set size of canvas and
+// draw some lines at startup
+window.onload= function(){
+  var c= document.getElementById("canvas");
+  c.width= c.offsetWidth;
+  c.height= c.offsetHeight;
+  draw(100);
+}
+</script>
